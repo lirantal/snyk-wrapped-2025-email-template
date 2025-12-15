@@ -2,7 +2,7 @@ import { render } from '@react-email/render';
 import React from 'react';
 import * as fs from 'fs';
 import * as path from 'path';
-import YearlyWrapped from '../emails/YearlyWrapped';
+import YearlyWrapped from '../emails/V1YearlyWrapped';
 
 async function exportHTML() {
   try {
