@@ -226,7 +226,7 @@ import {
                     
                     {/* CEO Image, Signature, and Title */}
                     <Row className="mb-6">
-                      <Column className="w-1/4" style={{ verticalAlign: 'top' }}>
+                      <Column className="w-full">
                         {ceoImageUrl && (
                           <Img
                             src={ceoImageUrl}
@@ -236,11 +236,10 @@ import {
                             style={{
                               borderRadius: '50%',
                               display: 'block',
+                              marginBottom: '12px',
                             }}
                           />
                         )}
-                      </Column>
-                      <Column className="w-3/4" style={{ verticalAlign: 'top', paddingLeft: '16px' }}>
                         {/* {ceoSignatureUrl && (
                           <Img
                             src={ceoSignatureUrl}
@@ -261,7 +260,7 @@ import {
                     
                     {/* CTA Button with Pink-to-Purple Gradient */}
                     <Row>
-                      <Column className="text-center">
+                      <Column className="text-left">
                         <Link
                           href={offerCtaUrl}
                           className="inline-block rounded-lg text-center font-bold text-sm text-white no-underline"
