@@ -1,2 +1,2 @@
-email,year,vulnerabilitiesFixed,projectsScanned,totalScans,topProjectName,topProjectVulnerabilities,mostActiveMonth,mostActiveMonthScans,securityPercentile,scanLocations,ceoName,ceoTitle,ceoImageUrl,ceoSignatureUrl,offerCtaUrl
-liran@snyk.io,2025,310,42,857,Main Application,45,September,28,1,United States|United Kingdom|Germany|Japan,Peter McKay,CEO,https://snyk.io/_next/image/?url=https%3A%2F%2Fres.cloudinary.com%2Fsnyk%2Fimage%2Fupload%2Fv1630430074%2Fwordpress-sync%2Fpeter-mckay-1.jpg&w=256&q=75,https://placehold.co/400,https://snyk.io
+email,year,vulnerabilitiesFixed,projectsScanned,totalScans,topProjectName,topProjectVulnerabilities,mostActiveMonth,mostActiveMonthScans,securityPercentile
+liran@snyk.io,2025,310,42,857,Main Application,45,September,28,1

@@ -18,7 +18,6 @@ async function exportHTML() {
         mostActiveMonth: 'September',
         mostActiveMonthScans: 28,
         securityPercentile: 1,
-        scanLocations: ['United States', 'United Kingdom', 'Germany', 'Japan'],
         ceoName: 'Peter McKay',
         ceoTitle: 'CEO',
         ceoMessage: 'Thank you for being a security champion this year. Your dedication to securing your code makes the entire developer community safer. We\'re excited about the momentum we\'re building together in 2025 and want to help you scale your security program in 2026. Claim your exclusive offer below to unlock additional Snyk license targets.',

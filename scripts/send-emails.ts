@@ -7,10 +7,10 @@ import SnykYearInReviewEmail from '../emails/V3YearlyWrapped';
 
 /**
  * CSV Format:
- * email,year,vulnerabilitiesFixed,projectsScanned,totalScans,topProjectName,topProjectVulnerabilities,mostActiveMonth,mostActiveMonthScans,securityPercentile,scanLocations,ceoName,ceoTitle,ceoImageUrl,ceoSignatureUrl,offerCtaUrl
+ * email,year,vulnerabilitiesFixed,projectsScanned,totalScans,topProjectName,topProjectVulnerabilities,mostActiveMonth,mostActiveMonthScans,securityPercentile
  * 
- * Note: scanLocations should be pipe-separated (e.g., "United States|United Kingdom|Germany|Japan")
  * Note: linkedInShareUrl and xShareUrl are configured via .env variables (LINKEDIN_SHARE_URL and X_SHARE_URL)
+ * Note: Static fields (ceoName, ceoTitle, ceoImageUrl, ceoSignatureUrl, offerCtaUrl) are hardcoded in the email template
  */
 
 interface RecipientData {
@@ -24,12 +24,6 @@ interface RecipientData {
   mostActiveMonth?: string;
   mostActiveMonthScans?: number;
   securityPercentile?: number;
-  scanLocations?: string[];
-  ceoName?: string;
-  ceoTitle?: string;
-  ceoImageUrl?: string;
-  ceoSignatureUrl?: string;
-  offerCtaUrl?: string;
 }
 
 function validateEnvVars(): void {
@@ -64,11 +58,6 @@ function parseCSV(filePath: string): RecipientData[] {
     });
 
     return records.map((record: any) => {
-      // Parse scanLocations from pipe-separated string to array
-      const scanLocations = record.scanLocations
-        ? record.scanLocations.split('|').map((loc: string) => loc.trim()).filter((loc: string) => loc)
-        : undefined;
-
       return {
         email: record.email,
         year: record.year ? parseInt(record.year, 10) : undefined,
@@ -80,12 +69,6 @@ function parseCSV(filePath: string): RecipientData[] {
         mostActiveMonth: record.mostActiveMonth || undefined,
         mostActiveMonthScans: record.mostActiveMonthScans ? parseInt(record.mostActiveMonthScans, 10) : undefined,
         securityPercentile: record.securityPercentile ? parseInt(record.securityPercentile, 10) : undefined,
-        scanLocations,
-        ceoName: record.ceoName || undefined,
-        ceoTitle: record.ceoTitle || undefined,
-        ceoImageUrl: record.ceoImageUrl || undefined,
-        ceoSignatureUrl: record.ceoSignatureUrl || undefined,
-        offerCtaUrl: record.offerCtaUrl || undefined,
       };
     });
   } catch (error: any) {
@@ -176,6 +159,8 @@ async function main() {
 
     try {
       // Render email template
+      // Note: Static fields (ceoName, ceoTitle, ceoImageUrl, ceoSignatureUrl, offerCtaUrl) 
+      // are hardcoded as defaults in the email template component
       const html = await render(
         React.createElement(SnykYearInReviewEmail, {
           year: recipient.year,
@@ -187,12 +172,6 @@ async function main() {
           mostActiveMonth: recipient.mostActiveMonth,
           mostActiveMonthScans: recipient.mostActiveMonthScans,
           securityPercentile: recipient.securityPercentile,
-          scanLocations: recipient.scanLocations,
-          ceoName: recipient.ceoName,
-          ceoTitle: recipient.ceoTitle,
-          ceoImageUrl: recipient.ceoImageUrl,
-          ceoSignatureUrl: recipient.ceoSignatureUrl,
-          offerCtaUrl: recipient.offerCtaUrl,
           linkedInShareUrl: linkedInShareUrl,
           xShareUrl: xShareUrl,
         })

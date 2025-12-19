@@ -25,7 +25,6 @@ import {
     mostActiveMonth?: string;
     mostActiveMonthScans?: number;
     securityPercentile?: number;
-    scanLocations?: string[];
     ceoName?: string;
     ceoTitle?: string;
     ceoImageUrl?: string;
@@ -45,7 +44,6 @@ import {
     mostActiveMonth,
     mostActiveMonthScans,
     securityPercentile,
-    scanLocations = [],
     ceoName = 'Peter McKay',
     ceoTitle = 'CEO',
     ceoImageUrl = 'https://snyk.io/_next/image/?url=https%3A%2F%2Fres.cloudinary.com%2Fsnyk%2Fimage%2Fupload%2Fv1630430074%2Fwordpress-sync%2Fpeter-mckay-1.jpg&w=256&q=75',
@@ -304,7 +302,6 @@ import {
     mostActiveMonth: 'September',
     mostActiveMonthScans: 28,
     securityPercentile: 1,
-    scanLocations: ['United States', 'United Kingdom', 'Germany', 'Japan'],
     ceoName: 'Peter McKay',
     ceoTitle: 'CEO',
     ceoImageUrl: 'https://snyk.io/_next/image/?url=https%3A%2F%2Fres.cloudinary.com%2Fsnyk%2Fimage%2Fupload%2Fv1630430074%2Fwordpress-sync%2Fpeter-mckay-1.jpg&w=256&q=75',
