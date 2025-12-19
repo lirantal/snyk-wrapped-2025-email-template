@@ -7,7 +7,7 @@ import SnykYearInReviewEmail from '../emails/V3YearlyWrapped';
 
 /**
  * CSV Format:
- * email,year,vulnerabilitiesFixed,projectsScanned,totalScans,topProjectName,topProjectVulnerabilities,mostActiveMonth,mostActiveMonthScans,securityPercentile,scanLocations,ceoName,ceoTitle,ceoMessage,ceoImageUrl,ceoSignatureUrl,offerCtaText,offerCtaUrl,linkedInShareUrl,xShareUrl
+ * email,year,vulnerabilitiesFixed,projectsScanned,totalScans,topProjectName,topProjectVulnerabilities,mostActiveMonth,mostActiveMonthScans,securityPercentile,scanLocations,ceoName,ceoTitle,ceoMessage,ceoImageUrl,ceoSignatureUrl,offerCtaUrl,linkedInShareUrl,xShareUrl
  * 
  * Note: scanLocations should be pipe-separated (e.g., "United States|United Kingdom|Germany|Japan")
  */
@@ -29,7 +29,6 @@ interface RecipientData {
   ceoMessage?: string;
   ceoImageUrl?: string;
   ceoSignatureUrl?: string;
-  offerCtaText?: string;
   offerCtaUrl?: string;
   linkedInShareUrl?: string;
   xShareUrl?: string;
@@ -89,7 +88,6 @@ function parseCSV(filePath: string): RecipientData[] {
         ceoMessage: record.ceoMessage || undefined,
         ceoImageUrl: record.ceoImageUrl || undefined,
         ceoSignatureUrl: record.ceoSignatureUrl || undefined,
-        offerCtaText: record.offerCtaText || undefined,
         offerCtaUrl: record.offerCtaUrl || undefined,
         linkedInShareUrl: record.linkedInShareUrl || undefined,
         xShareUrl: record.xShareUrl || undefined,
@@ -198,7 +196,6 @@ async function main() {
           ceoMessage: recipient.ceoMessage,
           ceoImageUrl: recipient.ceoImageUrl,
           ceoSignatureUrl: recipient.ceoSignatureUrl,
-          offerCtaText: recipient.offerCtaText,
           offerCtaUrl: recipient.offerCtaUrl,
           linkedInShareUrl: recipient.linkedInShareUrl,
           xShareUrl: recipient.xShareUrl,

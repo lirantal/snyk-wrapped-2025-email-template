@@ -31,7 +31,6 @@ import {
     ceoMessage?: string;
     ceoImageUrl?: string;
     ceoSignatureUrl?: string;
-    offerCtaText?: string;
     offerCtaUrl?: string;
     linkedInShareUrl?: string;
     xShareUrl?: string;
@@ -51,9 +50,8 @@ import {
     ceoName = 'Peter McKay',
     ceoTitle = 'CEO',
     ceoMessage = 'Thank you for being a security champion this year. Your dedication to securing your code makes the entire developer community safer.',
-    ceoImageUrl = 'https://placehold.co/400',
+    ceoImageUrl = 'https://snyk.io/_next/image/?url=https%3A%2F%2Fres.cloudinary.com%2Fsnyk%2Fimage%2Fupload%2Fv1630430074%2Fwordpress-sync%2Fpeter-mckay-1.jpg&w=256&q=75',
     ceoSignatureUrl = 'https://placehold.co/400',
-    offerCtaText = 'CLAIM YOUR OFFER',
     offerCtaUrl = 'https://snyk.io',
     linkedInShareUrl = 'https://www.linkedin.com/sharing/share-offsite/?url=https://snyk.io',
     xShareUrl = 'https://twitter.com/intent/tweet?url=https://snyk.io',
@@ -239,7 +237,7 @@ import {
                         )}
                       </Column>
                       <Column className="w-3/4" style={{ verticalAlign: 'top', paddingLeft: '16px' }}>
-                        {ceoSignatureUrl && (
+                        {/* {ceoSignatureUrl && (
                           <Img
                             src={ceoSignatureUrl}
                             alt={`${ceoName} signature`}
@@ -250,12 +248,23 @@ import {
                               marginBottom: '8px',
                             }}
                           />
-                        )}
+                        )} */}
                         <Text className="m-0 font-bold text-white text-base">
                           {ceoName}, {ceoTitle}
                         </Text>
                       </Column>
                     </Row>
+                    
+                    {/* CTA Text */}
+                    <Text className="mb-6 text-white text-base leading-7 text-left" style={{ lineHeight: '1.75', textAlign: 'left' }}>
+                      As CEO, it&apos;s inspiring to see the incredible momentum you&apos;ve built in 2025. You&apos;ve not only secured your code but have set a new standard for developer security.
+                      <br /><br />
+                      Because of this commitment and your impressive utilization of Snyk this past year, we want to fuel your security program for 2026.
+                      <br /><br />
+                      Book a dedicated, deep-dive demo of the Snyk API and Webhooks functionality in January, and we will instantly unlock 20 additional Targets for your 2026 Snyk license.
+                      <br /><br />
+                      This is our commitment to helping you automate security even further and scale your success. Don&apos;t let your 2025 momentum fade—let&apos;s build an even more secure 2026, together.
+                    </Text>
                     
                     {/* CTA Button with Pink-to-Purple Gradient */}
                     <Row>
@@ -273,7 +282,7 @@ import {
                             letterSpacing: '1px',
                           }}
                         >
-                          {offerCtaText}
+                          BOOK YOUR DEMO
                         </Link>
                       </Column>
                     </Row>
@@ -308,9 +317,8 @@ import {
     ceoName: 'Peter McKay',
     ceoTitle: 'CEO',
     ceoMessage: 'Thank you for being a security champion this year. Your dedication to securing your code makes the entire developer community safer. We\'re excited about the momentum we\'re building together in 2025 and want to help you scale your security program in 2026. Claim your exclusive offer below to unlock additional Snyk license targets.',
-    ceoImageUrl: 'https://placehold.co/400',
+    ceoImageUrl: 'https://snyk.io/_next/image/?url=https%3A%2F%2Fres.cloudinary.com%2Fsnyk%2Fimage%2Fupload%2Fv1630430074%2Fwordpress-sync%2Fpeter-mckay-1.jpg&w=256&q=75',
     ceoSignatureUrl: 'https://placehold.co/400',
-    offerCtaText: 'CLAIM YOUR OFFER',
     offerCtaUrl: 'https://snyk.io',
     linkedInShareUrl: 'https://www.linkedin.com/sharing/share-offsite/?url=https://snyk.io',
     xShareUrl: 'https://twitter.com/intent/tweet?url=https://snyk.io',
