@@ -69,8 +69,7 @@ import {
                 <Text className="mx-0 mb-0 p-0 text-center font-black text-5xl uppercase tracking-widest" style={{ 
                   fontSize: '48px', 
                   fontWeight: '900',
-                  color: 'transparent',
-                  textShadow: '-2px -2px 0 #FFFFFF, 2px -2px 0 #FFFFFF, -2px 2px 0 #FFFFFF, 2px 2px 0 #FFFFFF, 0 -2px 0 #FFFFFF, 0 2px 0 #FFFFFF, -2px 0 0 #FFFFFF, 2px 0 0 #FFFFFF',
+                  color: '#FFFFFF',
                 }}>
                   {year} WRAPPED
                 </Text>
@@ -209,7 +208,7 @@ import {
                 
                 <Row>
                   <Column className="w-full">
-                    <Heading className="m-0 mb-6 font-bold text-2xl text-white uppercase tracking-wider text-left" style={{ fontSize: '20px', letterSpacing: '2px' }}>
+                    <Heading className="m-0 mb-6 font-bold text-2xl text-white uppercase tracking-wider text-left" style={{ fontSize: '20px', letterSpacing: '2px', marginTop: '24px' }}>
                       AN OFFER JUST FOR YOU
                     </Heading>
                     
