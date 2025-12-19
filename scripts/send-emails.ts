@@ -7,9 +7,10 @@ import SnykYearInReviewEmail from '../emails/V3YearlyWrapped';
 
 /**
  * CSV Format:
- * email,year,vulnerabilitiesFixed,projectsScanned,totalScans,topProjectName,topProjectVulnerabilities,mostActiveMonth,mostActiveMonthScans,securityPercentile,scanLocations,ceoName,ceoTitle,ceoMessage,ceoImageUrl,ceoSignatureUrl,offerCtaUrl,linkedInShareUrl,xShareUrl
+ * email,year,vulnerabilitiesFixed,projectsScanned,totalScans,topProjectName,topProjectVulnerabilities,mostActiveMonth,mostActiveMonthScans,securityPercentile,scanLocations,ceoName,ceoTitle,ceoImageUrl,ceoSignatureUrl,offerCtaUrl
  * 
  * Note: scanLocations should be pipe-separated (e.g., "United States|United Kingdom|Germany|Japan")
+ * Note: linkedInShareUrl and xShareUrl are configured via .env variables (LINKEDIN_SHARE_URL and X_SHARE_URL)
  */
 
 interface RecipientData {
@@ -26,12 +27,9 @@ interface RecipientData {
   scanLocations?: string[];
   ceoName?: string;
   ceoTitle?: string;
-  ceoMessage?: string;
   ceoImageUrl?: string;
   ceoSignatureUrl?: string;
   offerCtaUrl?: string;
-  linkedInShareUrl?: string;
-  xShareUrl?: string;
 }
 
 function validateEnvVars(): void {
@@ -85,12 +83,9 @@ function parseCSV(filePath: string): RecipientData[] {
         scanLocations,
         ceoName: record.ceoName || undefined,
         ceoTitle: record.ceoTitle || undefined,
-        ceoMessage: record.ceoMessage || undefined,
         ceoImageUrl: record.ceoImageUrl || undefined,
         ceoSignatureUrl: record.ceoSignatureUrl || undefined,
         offerCtaUrl: record.offerCtaUrl || undefined,
-        linkedInShareUrl: record.linkedInShareUrl || undefined,
-        xShareUrl: record.xShareUrl || undefined,
       };
     });
   } catch (error: any) {
@@ -159,6 +154,8 @@ async function main() {
   const fromName = process.env.MAILGUN_FROM_NAME!;
   const subject = process.env.EMAIL_SUBJECT || `Your ${new Date().getFullYear()} Snyk Wrapped - See your security stats`;
   const csvPath = process.env.CSV_PATH || path.join(__dirname, '../recipients.csv');
+  const linkedInShareUrl = process.env.LINKEDIN_SHARE_URL;
+  const xShareUrl = process.env.X_SHARE_URL;
 
   // Parse CSV
   console.log(`📄 Reading recipients from: ${csvPath}`);
@@ -193,12 +190,11 @@ async function main() {
           scanLocations: recipient.scanLocations,
           ceoName: recipient.ceoName,
           ceoTitle: recipient.ceoTitle,
-          ceoMessage: recipient.ceoMessage,
           ceoImageUrl: recipient.ceoImageUrl,
           ceoSignatureUrl: recipient.ceoSignatureUrl,
           offerCtaUrl: recipient.offerCtaUrl,
-          linkedInShareUrl: recipient.linkedInShareUrl,
-          xShareUrl: recipient.xShareUrl,
+          linkedInShareUrl: linkedInShareUrl,
+          xShareUrl: xShareUrl,
         })
       );
 

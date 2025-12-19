@@ -28,7 +28,6 @@ import {
     scanLocations?: string[];
     ceoName?: string;
     ceoTitle?: string;
-    ceoMessage?: string;
     ceoImageUrl?: string;
     ceoSignatureUrl?: string;
     offerCtaUrl?: string;
@@ -49,7 +48,6 @@ import {
     scanLocations = [],
     ceoName = 'Peter McKay',
     ceoTitle = 'CEO',
-    ceoMessage = 'Thank you for being a security champion this year. Your dedication to securing your code makes the entire developer community safer.',
     ceoImageUrl = 'https://snyk.io/_next/image/?url=https%3A%2F%2Fres.cloudinary.com%2Fsnyk%2Fimage%2Fupload%2Fv1630430074%2Fwordpress-sync%2Fpeter-mckay-1.jpg&w=256&q=75',
     ceoSignatureUrl = 'https://placehold.co/400',
     offerCtaUrl = 'https://snyk.io',
@@ -211,13 +209,19 @@ import {
                 
                 <Row>
                   <Column className="w-full">
-                    <Heading className="m-0 mb-6 font-bold text-2xl text-white uppercase tracking-wider text-center" style={{ fontSize: '20px', letterSpacing: '2px' }}>
+                    <Heading className="m-0 mb-6 font-bold text-2xl text-white uppercase tracking-wider text-left" style={{ fontSize: '20px', letterSpacing: '2px' }}>
                       AN OFFER JUST FOR YOU
                     </Heading>
                     
                     {/* CEO Message */}
                     <Text className="mb-6 text-white text-base leading-7 text-left" style={{ lineHeight: '1.75', textAlign: 'left' }}>
-                      {ceoMessage}
+                      As CEO, it&apos;s inspiring to see the incredible momentum you&apos;ve built in 2025. You&apos;ve not only secured your code but have set a new standard for developer security.
+                      <br /><br />
+                      Because of this commitment and your impressive utilization of Snyk this past year, we want to fuel your security program for 2026.
+                      <br /><br />
+                      Book a dedicated, deep-dive demo of the Snyk API and Webhooks functionality in January, and we will instantly unlock 20 additional Targets for your 2026 Snyk license.
+                      <br /><br />
+                      This is our commitment to helping you automate security even further and scale your success. Don&apos;t let your 2025 momentum fade—let&apos;s build an even more secure 2026, together.
                     </Text>
                     
                     {/* CEO Image, Signature, and Title */}
@@ -254,17 +258,6 @@ import {
                         </Text>
                       </Column>
                     </Row>
-                    
-                    {/* CTA Text */}
-                    <Text className="mb-6 text-white text-base leading-7 text-left" style={{ lineHeight: '1.75', textAlign: 'left' }}>
-                      As CEO, it&apos;s inspiring to see the incredible momentum you&apos;ve built in 2025. You&apos;ve not only secured your code but have set a new standard for developer security.
-                      <br /><br />
-                      Because of this commitment and your impressive utilization of Snyk this past year, we want to fuel your security program for 2026.
-                      <br /><br />
-                      Book a dedicated, deep-dive demo of the Snyk API and Webhooks functionality in January, and we will instantly unlock 20 additional Targets for your 2026 Snyk license.
-                      <br /><br />
-                      This is our commitment to helping you automate security even further and scale your success. Don&apos;t let your 2025 momentum fade—let&apos;s build an even more secure 2026, together.
-                    </Text>
                     
                     {/* CTA Button with Pink-to-Purple Gradient */}
                     <Row>
@@ -316,7 +309,6 @@ import {
     scanLocations: ['United States', 'United Kingdom', 'Germany', 'Japan'],
     ceoName: 'Peter McKay',
     ceoTitle: 'CEO',
-    ceoMessage: 'Thank you for being a security champion this year. Your dedication to securing your code makes the entire developer community safer. We\'re excited about the momentum we\'re building together in 2025 and want to help you scale your security program in 2026. Claim your exclusive offer below to unlock additional Snyk license targets.',
     ceoImageUrl: 'https://snyk.io/_next/image/?url=https%3A%2F%2Fres.cloudinary.com%2Fsnyk%2Fimage%2Fupload%2Fv1630430074%2Fwordpress-sync%2Fpeter-mckay-1.jpg&w=256&q=75',
     ceoSignatureUrl: 'https://placehold.co/400',
     offerCtaUrl: 'https://snyk.io',
