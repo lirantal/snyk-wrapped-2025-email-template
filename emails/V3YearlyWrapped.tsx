@@ -25,6 +25,8 @@ import {
     mostActiveMonth?: string;
     mostActiveMonthScans?: number;
     securityPercentile?: number;
+    topEcosystem?: string;
+    topSnykLearnLesson?: string;
     recipientName?: string;
     unsubscribeUrl?: string;
     ceoName?: string;
@@ -46,6 +48,8 @@ import {
     mostActiveMonth,
     mostActiveMonthScans,
     securityPercentile,
+    topEcosystem,
+    topSnykLearnLesson,
     recipientName,
     unsubscribeUrl,
     ceoName = 'Peter McKay',
@@ -100,7 +104,7 @@ import {
                   {totalScans}
                 </Text>
                 <Text className="mb-4 font-bold text-2xl text-white">
-                  total tests and scans!
+                  monitored tests!
                 </Text>
                 <Text className="text-white text-base leading-6 opacity-90">
                   That&apos;s a whole lotta peace of mind. Run the World (Securely)!
@@ -153,6 +157,52 @@ import {
                   </Section>
                 );
               })()}
+
+              {/* Top Ecosystem Card (Teal Gradient) */}
+              {topEcosystem && (
+                <Section 
+                  className="my-6 rounded-3xl p-8 text-center" 
+                  style={{ 
+                    background: 'linear-gradient(135deg, #006B6B 0%, #00C4C4 100%)',
+                    margin: '24px 16px',
+                    padding: '48px 32px',
+                    borderRadius: '24px',
+                  }}
+                >
+                  <Heading className="m-0 font-bold text-sm text-white uppercase tracking-wider mb-4" style={{ fontSize: '12px', letterSpacing: '2px' }}>
+                    YOUR TOP ECOSYSTEM
+                  </Heading>
+                  <Text className="my-4 font-black text-6xl text-white leading-none uppercase" style={{ fontSize: '72px', lineHeight: '1', fontWeight: '900' }}>
+                    {topEcosystem}
+                  </Text>
+                  <Text className="text-white text-base leading-6 opacity-90">
+                    You&apos;ve been securing your {topEcosystem} projects like a pro!
+                  </Text>
+                </Section>
+              )}
+
+              {/* Top Snyk Learn Lesson Card (Orange Gradient) */}
+              {topSnykLearnLesson && (
+                <Section 
+                  className="my-6 rounded-3xl p-8 text-center" 
+                  style={{ 
+                    background: 'linear-gradient(135deg, #B85A00 0%, #FF8C00 100%)',
+                    margin: '24px 16px',
+                    padding: '48px 32px',
+                    borderRadius: '24px',
+                  }}
+                >
+                  <Heading className="m-0 font-bold text-sm text-white uppercase tracking-wider mb-4" style={{ fontSize: '12px', letterSpacing: '2px' }}>
+                    YOUR TOP SNYK LEARN LESSON
+                  </Heading>
+                  <Text className="my-4 font-bold text-3xl text-white leading-tight" style={{ fontSize: '32px', lineHeight: '1.3', fontWeight: '700' }}>
+                    {topSnykLearnLesson}
+                  </Text>
+                  <Text className="text-white text-base leading-6 opacity-90">
+                    Knowledge is power, and you&apos;ve been leveling up your security skills!
+                  </Text>
+                </Section>
+              )}
 
               {/* Social Share Buttons */}
               <Section className="my-6 text-center" style={{ margin: '32px 16px' }}>
@@ -320,6 +370,8 @@ import {
     mostActiveMonth: 'September',
     mostActiveMonthScans: 28,
     securityPercentile: 1,
+    topEcosystem: 'npm',
+    topSnykLearnLesson: 'Understanding Dependency Vulnerabilities',
     recipientName: 'Developer',
     unsubscribeUrl: 'https://snyk.io/unsubscribe',
     ceoName: 'Peter McKay',
