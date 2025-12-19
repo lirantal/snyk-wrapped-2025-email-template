@@ -1,2 +1,2 @@
-email,name,year,vulnerabilitiesFixed,monitoredTests,securityPercentile
-liran@snyk.io,Liran,2025,310,857,1
+email,name,vulnerabilitiesFixed,monitoredTests,securityPercentile,topEcosystem,topSnykLearnLesson
+liran@snyk.io,Liran,310,857,1,npm,Understanding Dependency Vulnerabilities

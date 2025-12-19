@@ -7,9 +7,11 @@ import SnykYearInReviewEmail from '../emails/V3YearlyWrapped';
 
 /**
  * CSV Format:
- * email,name,year,vulnerabilitiesFixed,monitoredTests,securityPercentile
+ * email,name,vulnerabilitiesFixed,monitoredTests,securityPercentile,topEcosystem,topSnykLearnLesson
  * 
  * Note: name field is optional - if empty, personalization will be skipped
+ * Note: topEcosystem and topSnykLearnLesson are optional - if empty, those sections will be omitted
+ * Note: year is configured via .env variable (EMAIL_YEAR) or defaults to current year
  * Note: linkedInShareUrl and xShareUrl are configured via .env variables (LINKEDIN_SHARE_URL and X_SHARE_URL)
  * Note: unsubscribeUrl is configured via .env variable (UNSUBSCRIBE_URL)
  * Note: Static fields (ceoName, ceoTitle, ceoImageUrl, ceoSignatureUrl, offerCtaUrl) are hardcoded in the email template
@@ -18,10 +20,11 @@ import SnykYearInReviewEmail from '../emails/V3YearlyWrapped';
 interface RecipientData {
   email: string;
   name?: string;
-  year?: number;
   vulnerabilitiesFixed?: number;
   monitoredTests?: number;
   securityPercentile?: number;
+  topEcosystem?: string;
+  topSnykLearnLesson?: string;
 }
 
 function validateEnvVars(): void {
@@ -59,10 +62,11 @@ function parseCSV(filePath: string): RecipientData[] {
       return {
         email: record.email,
         name: record.name?.trim() || undefined,
-        year: record.year ? parseInt(record.year, 10) : undefined,
         vulnerabilitiesFixed: record.vulnerabilitiesFixed ? parseInt(record.vulnerabilitiesFixed, 10) : undefined,
         monitoredTests: record.monitoredTests ? parseInt(record.monitoredTests, 10) : undefined,
         securityPercentile: record.securityPercentile ? parseInt(record.securityPercentile, 10) : undefined,
+        topEcosystem: record.topEcosystem?.trim() || undefined,
+        topSnykLearnLesson: record.topSnykLearnLesson?.trim() || undefined,
       };
     });
   } catch (error: any) {
@@ -74,9 +78,8 @@ function parseCSV(filePath: string): RecipientData[] {
 /**
  * Generate plain text version of the email
  */
-function generatePlainText(recipient: RecipientData, unsubscribeUrl?: string): string {
+function generatePlainText(recipient: RecipientData, year: number, unsubscribeUrl?: string): string {
   const greeting = recipient.name ? `Hi ${recipient.name},\n\n` : '';
-  const year = recipient.year || new Date().getFullYear();
   
   let text = `${greeting}Your ${year} Snyk Wrapped - See your security stats\n\n`;
   text += `${'='.repeat(50)}\n\n`;
@@ -186,7 +189,8 @@ async function main() {
   const domain = process.env.MAILGUN_DOMAIN!;
   const fromEmail = process.env.MAILGUN_FROM_EMAIL!;
   const fromName = process.env.MAILGUN_FROM_NAME!;
-  const subject = process.env.EMAIL_SUBJECT || `Your ${new Date().getFullYear()} Snyk Wrapped - See your security stats`;
+  const year = process.env.EMAIL_YEAR ? parseInt(process.env.EMAIL_YEAR, 10) : new Date().getFullYear();
+  const subject = process.env.EMAIL_SUBJECT || `Your ${year} Snyk Wrapped - See your security stats`;
   const csvPath = process.env.CSV_PATH || path.join(__dirname, '../recipients.csv');
   const linkedInShareUrl = process.env.LINKEDIN_SHARE_URL;
   const xShareUrl = process.env.X_SHARE_URL;
@@ -215,10 +219,12 @@ async function main() {
       // are hardcoded as defaults in the email template component
       const html = await render(
         React.createElement(SnykYearInReviewEmail, {
-          year: recipient.year,
+          year: year,
           vulnerabilitiesFixed: recipient.vulnerabilitiesFixed,
           monitoredTests: recipient.monitoredTests,
           securityPercentile: recipient.securityPercentile,
+          topEcosystem: recipient.topEcosystem,
+          topSnykLearnLesson: recipient.topSnykLearnLesson,
           recipientName: recipient.name,
           unsubscribeUrl: unsubscribeUrl,
           linkedInShareUrl: linkedInShareUrl,
@@ -227,7 +233,7 @@ async function main() {
       );
 
       // Generate plain text version
-      const text = generatePlainText(recipient, unsubscribeUrl);
+      const text = generatePlainText(recipient, year, unsubscribeUrl);
 
       // Send email
       const success = await sendEmail(

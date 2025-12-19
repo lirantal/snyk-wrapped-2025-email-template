@@ -51,6 +51,7 @@ All critical fixes have been implemented according to Mailgun's best practices. 
 - `MAILGUN_FROM_NAME` - Sender name
 
 ### Optional (New)
+- `EMAIL_YEAR` - The year for the wrapped statistics (defaults to current year if not set)
 - `UNSUBSCRIBE_URL` - URL for unsubscribe link (e.g., `https://snyk.io/unsubscribe?email=%recipient%`)
 - `LINKEDIN_SHARE_URL` - LinkedIn share URL (existing)
 - `X_SHARE_URL` - X/Twitter share URL (existing)
@@ -58,15 +59,18 @@ All critical fixes have been implemented according to Mailgun's best practices. 
 
 ## 📄 CSV Format
 
-The CSV format has been updated to include an optional `name` field:
+The CSV format includes optional fields for personalization and additional stats. The `year` field has been moved to environment variable configuration:
 
 ```csv
-email,name,year,vulnerabilitiesFixed,monitoredTests,securityPercentile
-user@example.com,John Doe,2025,310,857,1
-user2@example.com,,2025,250,650,5
+email,name,vulnerabilitiesFixed,monitoredTests,securityPercentile,topEcosystem,topSnykLearnLesson
+user@example.com,John Doe,310,857,1,npm,Understanding Dependency Vulnerabilities
+user2@example.com,,250,650,5,maven,Secure Coding Practices
 ```
 
-**Note:** The `name` field is optional. If left empty, the personalization greeting will be skipped.
+**Note:** 
+- The `name` field is optional. If left empty, the personalization greeting will be skipped.
+- The `topEcosystem` and `topSnykLearnLesson` fields are optional. If empty, those sections will be omitted from the email.
+- The `year` is configured via `EMAIL_YEAR` environment variable (defaults to current year if not set).
 
 ## 🧪 Testing Recommendations
 

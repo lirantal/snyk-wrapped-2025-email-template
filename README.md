@@ -64,23 +64,25 @@ The CSV file should have the following columns:
 |------------|----------|------|-------------|---------|
 | `email` | ✅ Yes | string | Recipient's email address | `liran@snyk.io` |
 | `name` | ❌ No | string | Recipient's name (for personalization). If empty, personalization is skipped | `Liran` |
-| `year` | ❌ No | number | The year for the wrapped statistics | `2025` |
 | `vulnerabilitiesFixed` | ❌ No | number | Total number of vulnerabilities fixed | `310` |
 | `monitoredTests` | ❌ No | number | Total number of monitored tests performed | `857` |
 | `securityPercentile` | ❌ No | number | Security percentile ranking (1-100) | `1` |
+| `topEcosystem` | ❌ No | string | Top ecosystem used (e.g., npm, maven, pip). If empty, this section is omitted | `npm` |
+| `topSnykLearnLesson` | ❌ No | string | Top Snyk Learn lesson completed. If empty, this section is omitted | `Understanding Dependency Vulnerabilities` |
 
 ### Example CSV
 
 ```csv
-email,name,year,vulnerabilitiesFixed,monitoredTests,securityPercentile
-liran@snyk.io,Liran,2025,310,857,1
-user@example.com,John,2025,128,450,5
+email,name,vulnerabilitiesFixed,monitoredTests,securityPercentile,topEcosystem,topSnykLearnLesson
+liran@snyk.io,Liran,310,857,1,npm,Understanding Dependency Vulnerabilities
+user@example.com,John,128,450,5,maven,Secure Coding Practices
 ```
 
 ### Notes
 
 - The `email` field is required and must be a valid email address
 - The `name` field is optional. If empty or missing, the email will not include personalized greetings
+- The `topEcosystem` and `topSnykLearnLesson` fields are optional. If empty, those sections will be omitted from the email
 - All numeric fields should be integers
 - If optional fields are missing, the email template will use default values or omit those sections
 - The CSV file should include a header row with column names
@@ -106,6 +108,7 @@ These environment variables are required when using the `send-emails` script:
 
 | Variable | Description | Default | Example |
 |----------|-------------|---------|---------|
+| `EMAIL_YEAR` | The year for the wrapped statistics | Current year | `2025` |
 | `EMAIL_SUBJECT` | Custom email subject line | `Your {year} Snyk Wrapped - See your security stats` | `Your 2025 Security Wrapped` |
 | `CSV_PATH` | Path to recipients CSV file | `./recipients.csv` | `./data/recipients.csv` |
 | `LINKEDIN_SHARE_URL` | LinkedIn share URL for social sharing | Not included | `https://www.linkedin.com/sharing/share-offsite/?url=https://snyk.io` |
@@ -116,16 +119,18 @@ These environment variables are required when using the `send-emails` script:
 
 The email template (`V3YearlyWrapped.tsx`) supports the following props that can be configured:
 
-#### Data Props (from CSV)
+#### Data Props
 
-- `year` - The year for the wrapped
-- `vulnerabilitiesFixed` - Number of vulnerabilities fixed
-- `monitoredTests` - Total number of monitored tests
-- `securityPercentile` - Security percentile (1-100)
-- `recipientName` - Recipient's name for personalization
-- `unsubscribeUrl` - Unsubscribe link URL
-- `linkedInShareUrl` - LinkedIn share URL
-- `xShareUrl` - X (Twitter) share URL
+- `year` - The year for the wrapped (configured via `EMAIL_YEAR` environment variable, defaults to current year)
+- `vulnerabilitiesFixed` - Number of vulnerabilities fixed (from CSV)
+- `monitoredTests` - Total number of monitored tests (from CSV)
+- `securityPercentile` - Security percentile (1-100) (from CSV)
+- `topEcosystem` - Top ecosystem used (from CSV, optional)
+- `topSnykLearnLesson` - Top Snyk Learn lesson completed (from CSV, optional)
+- `recipientName` - Recipient's name for personalization (from CSV)
+- `unsubscribeUrl` - Unsubscribe link URL (from `UNSUBSCRIBE_URL` environment variable)
+- `linkedInShareUrl` - LinkedIn share URL (from `LINKEDIN_SHARE_URL` environment variable)
+- `xShareUrl` - X (Twitter) share URL (from `X_SHARE_URL` environment variable)
 
 #### CEO Message Props (Hardcoded Defaults)
 
