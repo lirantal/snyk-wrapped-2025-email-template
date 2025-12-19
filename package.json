@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "email dev",
     "export": "tsx scripts/export-html.ts",
-    "build": "tsc"
+    "build": "tsc",
+    "send-emails": "tsx --env-file=.env scripts/send-emails.ts"
   },
   "keywords": [],
   "author": "",
@@ -14,6 +15,7 @@
   "type": "commonjs",
   "dependencies": {
     "@react-email/components": "^1.0.1",
+    "csv-parse": "^5.5.6",
     "react": "^19.2.3",
     "react-dom": "^19.2.3",
     "react-email": "^5.0.8"
@@ -21,6 +23,7 @@
   "devDependencies": {
     "@react-email/preview-server": "^5.0.8",
     "@react-email/render": "^2.0.0",
+    "@types/node": "^20.0.0",
     "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",
     "tsx": "^4.21.0",
