@@ -66,20 +66,15 @@ The CSV file should have the following columns:
 | `name` | ❌ No | string | Recipient's name (for personalization). If empty, personalization is skipped | `Liran` |
 | `year` | ❌ No | number | The year for the wrapped statistics | `2025` |
 | `vulnerabilitiesFixed` | ❌ No | number | Total number of vulnerabilities fixed | `310` |
-| `projectsScanned` | ❌ No | number | Number of projects scanned | `42` |
-| `totalScans` | ❌ No | number | Total number of scans performed | `857` |
-| `topProjectName` | ❌ No | string | Name of the top project by vulnerabilities fixed | `Main Application` |
-| `topProjectVulnerabilities` | ❌ No | number | Number of vulnerabilities fixed in the top project | `45` |
-| `mostActiveMonth` | ❌ No | string | The month with the most activity | `September` |
-| `mostActiveMonthScans` | ❌ No | number | Number of scans in the most active month | `28` |
+| `monitoredTests` | ❌ No | number | Total number of monitored tests performed | `857` |
 | `securityPercentile` | ❌ No | number | Security percentile ranking (1-100) | `1` |
 
 ### Example CSV
 
 ```csv
-email,name,year,vulnerabilitiesFixed,projectsScanned,totalScans,topProjectName,topProjectVulnerabilities,mostActiveMonth,mostActiveMonthScans,securityPercentile
-liran@snyk.io,Liran,2025,310,42,857,Main Application,45,September,28,1
-user@example.com,John,2025,128,25,450,API Service,32,August,18,5
+email,name,year,vulnerabilitiesFixed,monitoredTests,securityPercentile
+liran@snyk.io,Liran,2025,310,857,1
+user@example.com,John,2025,128,450,5
 ```
 
 ### Notes
@@ -125,12 +120,7 @@ The email template (`V3YearlyWrapped.tsx`) supports the following props that can
 
 - `year` - The year for the wrapped
 - `vulnerabilitiesFixed` - Number of vulnerabilities fixed
-- `projectsScanned` - Number of projects scanned
-- `totalScans` - Total number of scans
-- `topProjectName` - Name of top project
-- `topProjectVulnerabilities` - Vulnerabilities fixed in top project
-- `mostActiveMonth` - Most active month name
-- `mostActiveMonthScans` - Scans in most active month
+- `monitoredTests` - Total number of monitored tests
 - `securityPercentile` - Security percentile (1-100)
 - `recipientName` - Recipient's name for personalization
 - `unsubscribeUrl` - Unsubscribe link URL

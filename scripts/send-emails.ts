@@ -7,7 +7,7 @@ import SnykYearInReviewEmail from '../emails/V3YearlyWrapped';
 
 /**
  * CSV Format:
- * email,name,year,vulnerabilitiesFixed,projectsScanned,totalScans,topProjectName,topProjectVulnerabilities,mostActiveMonth,mostActiveMonthScans,securityPercentile
+ * email,name,year,vulnerabilitiesFixed,monitoredTests,securityPercentile
  * 
  * Note: name field is optional - if empty, personalization will be skipped
  * Note: linkedInShareUrl and xShareUrl are configured via .env variables (LINKEDIN_SHARE_URL and X_SHARE_URL)
@@ -20,12 +20,7 @@ interface RecipientData {
   name?: string;
   year?: number;
   vulnerabilitiesFixed?: number;
-  projectsScanned?: number;
-  totalScans?: number;
-  topProjectName?: string;
-  topProjectVulnerabilities?: number;
-  mostActiveMonth?: string;
-  mostActiveMonthScans?: number;
+  monitoredTests?: number;
   securityPercentile?: number;
 }
 
@@ -66,12 +61,7 @@ function parseCSV(filePath: string): RecipientData[] {
         name: record.name?.trim() || undefined,
         year: record.year ? parseInt(record.year, 10) : undefined,
         vulnerabilitiesFixed: record.vulnerabilitiesFixed ? parseInt(record.vulnerabilitiesFixed, 10) : undefined,
-        projectsScanned: record.projectsScanned ? parseInt(record.projectsScanned, 10) : undefined,
-        totalScans: record.totalScans ? parseInt(record.totalScans, 10) : undefined,
-        topProjectName: record.topProjectName || undefined,
-        topProjectVulnerabilities: record.topProjectVulnerabilities ? parseInt(record.topProjectVulnerabilities, 10) : undefined,
-        mostActiveMonth: record.mostActiveMonth || undefined,
-        mostActiveMonthScans: record.mostActiveMonthScans ? parseInt(record.mostActiveMonthScans, 10) : undefined,
+        monitoredTests: record.monitoredTests ? parseInt(record.monitoredTests, 10) : undefined,
         securityPercentile: record.securityPercentile ? parseInt(record.securityPercentile, 10) : undefined,
       };
     });
@@ -92,7 +82,7 @@ function generatePlainText(recipient: RecipientData, unsubscribeUrl?: string): s
   text += `${'='.repeat(50)}\n\n`;
   
   text += `YOUR SECURITY MARATHON\n`;
-  text += `${recipient.totalScans || 0} total tests and scans!\n`;
+  text += `${recipient.monitoredTests || 0} total tests and scans!\n`;
   text += `That's a whole lotta peace of mind. Run the World (Securely)!\n\n`;
   
   text += `CLOSING TIME, YOU FIXED THE BUGS\n`;
@@ -227,12 +217,7 @@ async function main() {
         React.createElement(SnykYearInReviewEmail, {
           year: recipient.year,
           vulnerabilitiesFixed: recipient.vulnerabilitiesFixed,
-          projectsScanned: recipient.projectsScanned,
-          totalScans: recipient.totalScans,
-          topProjectName: recipient.topProjectName,
-          topProjectVulnerabilities: recipient.topProjectVulnerabilities,
-          mostActiveMonth: recipient.mostActiveMonth,
-          mostActiveMonthScans: recipient.mostActiveMonthScans,
+          monitoredTests: recipient.monitoredTests,
           securityPercentile: recipient.securityPercentile,
           recipientName: recipient.name,
           unsubscribeUrl: unsubscribeUrl,

@@ -1,2 +1,2 @@
-email,name,year,vulnerabilitiesFixed,projectsScanned,totalScans,topProjectName,topProjectVulnerabilities,mostActiveMonth,mostActiveMonthScans,securityPercentile
-liran@snyk.io,Liran,2025,310,42,857,Main Application,45,September,28,1
+email,name,year,vulnerabilitiesFixed,monitoredTests,securityPercentile
+liran@snyk.io,Liran,2025,310,857,1

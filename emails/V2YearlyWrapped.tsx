@@ -18,7 +18,7 @@ import {
     year?: number;
     vulnerabilitiesFixed?: number;
     projectsScanned?: number;
-    totalScans?: number;
+    monitoredTests?: number;
     topProjectName?: string;
     topProjectVulnerabilities?: number;
     mostActiveMonth?: string;
@@ -31,7 +31,7 @@ import {
     year,
     vulnerabilitiesFixed,
     projectsScanned,
-    totalScans,
+    monitoredTests,
     topProjectName,
     topProjectVulnerabilities,
     mostActiveMonth,
@@ -102,7 +102,7 @@ import {
                       You ran
                     </Text>
                     <Text className="my-1 font-bold text-4xl text-gray-900">
-                      {totalScans}
+                      {monitoredTests}
                     </Text>
                     <Text className="text-2xl text-gray-900">scans</Text>
                   </Column>
@@ -218,7 +218,7 @@ import {
     year: 2024,
     vulnerabilitiesFixed: 128,
     projectsScanned: 42,
-    totalScans: 156,
+    monitoredTests: 156,
     topProjectName: 'Main Application',
     topProjectVulnerabilities: 45,
     mostActiveMonth: 'September',

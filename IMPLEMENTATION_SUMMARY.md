@@ -61,9 +61,9 @@ All critical fixes have been implemented according to Mailgun's best practices. 
 The CSV format has been updated to include an optional `name` field:
 
 ```csv
-email,name,year,vulnerabilitiesFixed,projectsScanned,totalScans,topProjectName,topProjectVulnerabilities,mostActiveMonth,mostActiveMonthScans,securityPercentile
-user@example.com,John Doe,2025,310,42,857,Main Application,45,September,28,1
-user2@example.com,,2025,250,35,650,Another Project,30,August,22,5
+email,name,year,vulnerabilitiesFixed,monitoredTests,securityPercentile
+user@example.com,John Doe,2025,310,857,1
+user2@example.com,,2025,250,650,5
 ```
 
 **Note:** The `name` field is optional. If left empty, the personalization greeting will be skipped.

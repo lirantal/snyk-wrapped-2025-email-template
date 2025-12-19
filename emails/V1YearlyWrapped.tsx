@@ -19,7 +19,7 @@ interface YearlyWrappedProps {
     projectsScanned?: number;
     vulnerabilitiesFixed?: number;
     topLanguage?: string;
-    totalScans?: number;
+    monitoredTests?: number;
   };
 }
 
@@ -30,7 +30,7 @@ export default function YearlyWrapped({
     projectsScanned: 42,
     vulnerabilitiesFixed: 128,
     topLanguage: 'JavaScript',
-    totalScans: 156,
+    monitoredTests: 156,
   },
 }: YearlyWrappedProps) {
   return (
@@ -58,7 +58,7 @@ export default function YearlyWrapped({
             </Section>
 
             <Section style={statCard}>
-              <Text style={statNumber}>{stats.totalScans}</Text>
+              <Text style={statNumber}>{stats.monitoredTests}</Text>
               <Text style={statLabel}>Total Scans</Text>
             </Section>
           </Section>

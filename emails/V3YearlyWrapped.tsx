@@ -18,12 +18,7 @@ import {
   interface SnykYearInReviewEmailProps {
     year?: number;
     vulnerabilitiesFixed?: number;
-    projectsScanned?: number;
-    totalScans?: number;
-    topProjectName?: string;
-    topProjectVulnerabilities?: number;
-    mostActiveMonth?: string;
-    mostActiveMonthScans?: number;
+    monitoredTests?: number;
     securityPercentile?: number;
     topEcosystem?: string;
     topSnykLearnLesson?: string;
@@ -41,12 +36,7 @@ import {
   export default function SnykYearInReviewEmail({
     year,
     vulnerabilitiesFixed,
-    projectsScanned,
-    totalScans,
-    topProjectName,
-    topProjectVulnerabilities,
-    mostActiveMonth,
-    mostActiveMonthScans,
+    monitoredTests,
     securityPercentile,
     topEcosystem,
     topSnykLearnLesson,
@@ -101,7 +91,7 @@ import {
                   YOUR SECURITY MARATHON
                 </Heading>
                 <Text className="my-4 font-black text-8xl text-white leading-none" style={{ fontSize: '96px', lineHeight: '1', fontWeight: '900' }}>
-                  {totalScans}
+                  {monitoredTests}
                 </Text>
                 <Text className="mb-4 font-bold text-2xl text-white">
                   monitored tests!
@@ -363,12 +353,7 @@ import {
   SnykYearInReviewEmail.PreviewProps = {
     year: 2025,
     vulnerabilitiesFixed: 310,
-    projectsScanned: 42,
-    totalScans: 857,
-    topProjectName: 'Main Application',
-    topProjectVulnerabilities: 45,
-    mostActiveMonth: 'September',
-    mostActiveMonthScans: 28,
+    monitoredTests: 857,
     securityPercentile: 1,
     topEcosystem: 'npm',
     topSnykLearnLesson: 'Understanding Dependency Vulnerabilities',

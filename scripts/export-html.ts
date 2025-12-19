@@ -11,12 +11,7 @@ async function exportHTML() {
       React.createElement(SnykYearInReviewEmail, {
         year: 2025,
         vulnerabilitiesFixed: 310,
-        projectsScanned: 42,
-        totalScans: 857,
-        topProjectName: 'Main Application',
-        topProjectVulnerabilities: 45,
-        mostActiveMonth: 'September',
-        mostActiveMonthScans: 28,
+        monitoredTests: 857,
         securityPercentile: 1,
         ceoName: 'Peter McKay',
         ceoTitle: 'CEO',
