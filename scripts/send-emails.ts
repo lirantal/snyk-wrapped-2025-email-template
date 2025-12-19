@@ -7,14 +7,17 @@ import SnykYearInReviewEmail from '../emails/V3YearlyWrapped';
 
 /**
  * CSV Format:
- * email,year,vulnerabilitiesFixed,projectsScanned,totalScans,topProjectName,topProjectVulnerabilities,mostActiveMonth,mostActiveMonthScans,securityPercentile
+ * email,name,year,vulnerabilitiesFixed,projectsScanned,totalScans,topProjectName,topProjectVulnerabilities,mostActiveMonth,mostActiveMonthScans,securityPercentile
  * 
+ * Note: name field is optional - if empty, personalization will be skipped
  * Note: linkedInShareUrl and xShareUrl are configured via .env variables (LINKEDIN_SHARE_URL and X_SHARE_URL)
+ * Note: unsubscribeUrl is configured via .env variable (UNSUBSCRIBE_URL)
  * Note: Static fields (ceoName, ceoTitle, ceoImageUrl, ceoSignatureUrl, offerCtaUrl) are hardcoded in the email template
  */
 
 interface RecipientData {
   email: string;
+  name?: string;
   year?: number;
   vulnerabilitiesFixed?: number;
   projectsScanned?: number;
@@ -60,6 +63,7 @@ function parseCSV(filePath: string): RecipientData[] {
     return records.map((record: any) => {
       return {
         email: record.email,
+        name: record.name?.trim() || undefined,
         year: record.year ? parseInt(record.year, 10) : undefined,
         vulnerabilitiesFixed: record.vulnerabilitiesFixed ? parseInt(record.vulnerabilitiesFixed, 10) : undefined,
         projectsScanned: record.projectsScanned ? parseInt(record.projectsScanned, 10) : undefined,
@@ -77,14 +81,56 @@ function parseCSV(filePath: string): RecipientData[] {
   }
 }
 
+/**
+ * Generate plain text version of the email
+ */
+function generatePlainText(recipient: RecipientData, unsubscribeUrl?: string): string {
+  const greeting = recipient.name ? `Hi ${recipient.name},\n\n` : '';
+  const year = recipient.year || new Date().getFullYear();
+  
+  let text = `${greeting}Your ${year} Snyk Wrapped - See your security stats\n\n`;
+  text += `${'='.repeat(50)}\n\n`;
+  
+  text += `YOUR SECURITY MARATHON\n`;
+  text += `${recipient.totalScans || 0} total tests and scans!\n`;
+  text += `That's a whole lotta peace of mind. Run the World (Securely)!\n\n`;
+  
+  text += `CLOSING TIME, YOU FIXED THE BUGS\n`;
+  text += `${recipient.vulnerabilitiesFixed || 0} vulnerabilities fixed!\n`;
+  text += `That's ${recipient.vulnerabilitiesFixed || 0} fewer sleepless nights for your security team.\n\n`;
+  
+  const percentile = recipient.securityPercentile || 1;
+  text += `YOU'RE IN THE ELITE ${percentile}%\n`;
+  text += `Your fix velocity puts you ahead of ${100 - percentile}% of Snyk users. Developer Security Superstar Status: Achieved!\n\n`;
+  
+  text += `AN OFFER JUST FOR YOU\n\n`;
+  text += `As CEO, it's inspiring to see the incredible momentum you've built in ${year}. You've not only secured your code but have set a new standard for developer security.\n\n`;
+  text += `Because of this commitment and your impressive utilization of Snyk this past year, we want to fuel your security program for ${year + 1}.\n\n`;
+  text += `Book a dedicated, deep-dive demo of the Snyk API and Webhooks functionality in January, and we will instantly unlock 20 additional Targets for your ${year + 1} Snyk license.\n\n`;
+  text += `This is our commitment to helping you automate security even further and scale your success. Don't let your ${year} momentum fade—let's build an even more secure ${year + 1}, together.\n\n`;
+  text += `Peter McKay, CEO\n\n`;
+  text += `BOOK YOUR DEMO: https://snyk.io\n\n`;
+  
+  text += `${'='.repeat(50)}\n\n`;
+  text += `Thank you for being a security champion in ${year}\n`;
+  
+  if (unsubscribeUrl) {
+    text += `\nUnsubscribe: ${unsubscribeUrl}\n`;
+  }
+  
+  return text;
+}
+
 async function sendEmail(
   recipient: RecipientData,
   html: string,
+  text: string,
   apiKey: string,
   domain: string,
   fromEmail: string,
   fromName: string,
-  subject: string
+  subject: string,
+  unsubscribeUrl?: string
 ): Promise<boolean> {
   try {
     // Validate email address
@@ -98,6 +144,21 @@ async function sendEmail(
     form.append('to', recipient.email);
     form.append('subject', subject);
     form.append('html', html);
+    form.append('text', text);
+    
+    // Add return-path header for bounce handling
+    form.append('h:Return-Path', fromEmail);
+    
+    // Enable Mailgun tracking (opens and clicks)
+    form.append('o:tracking', 'yes');
+    form.append('o:tracking-opens', 'yes');
+    form.append('o:tracking-clicks', 'yes');
+    
+    // Add List-Unsubscribe headers for better deliverability
+    if (unsubscribeUrl) {
+      form.append('h:List-Unsubscribe', `<${unsubscribeUrl}>`);
+      form.append('h:List-Unsubscribe-Post', 'List-Unsubscribe=One-Click');
+    }
 
     const auth = Buffer.from(`api:${apiKey}`).toString('base64');
     const url = `https://api.mailgun.net/v3/${domain}/messages`;
@@ -139,6 +200,7 @@ async function main() {
   const csvPath = process.env.CSV_PATH || path.join(__dirname, '../recipients.csv');
   const linkedInShareUrl = process.env.LINKEDIN_SHARE_URL;
   const xShareUrl = process.env.X_SHARE_URL;
+  const unsubscribeUrl = process.env.UNSUBSCRIBE_URL;
 
   // Parse CSV
   console.log(`📄 Reading recipients from: ${csvPath}`);
@@ -172,20 +234,27 @@ async function main() {
           mostActiveMonth: recipient.mostActiveMonth,
           mostActiveMonthScans: recipient.mostActiveMonthScans,
           securityPercentile: recipient.securityPercentile,
+          recipientName: recipient.name,
+          unsubscribeUrl: unsubscribeUrl,
           linkedInShareUrl: linkedInShareUrl,
           xShareUrl: xShareUrl,
         })
       );
 
+      // Generate plain text version
+      const text = generatePlainText(recipient, unsubscribeUrl);
+
       // Send email
       const success = await sendEmail(
         recipient,
         html,
+        text,
         apiKey,
         domain,
         fromEmail,
         fromName,
-        subject
+        subject,
+        unsubscribeUrl
       );
 
       if (success) {
@@ -194,8 +263,8 @@ async function main() {
         failureCount++;
       }
 
-      // Small delay to avoid rate limiting
-      await new Promise(resolve => setTimeout(resolve, 100));
+      // Delay to avoid rate limiting (increased from 100ms to 300ms for better deliverability)
+      await new Promise(resolve => setTimeout(resolve, 300));
     } catch (error: any) {
       console.error(`❌ Error processing ${recipient.email}:`, error.message);
       failureCount++;

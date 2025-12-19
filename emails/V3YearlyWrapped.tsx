@@ -25,6 +25,8 @@ import {
     mostActiveMonth?: string;
     mostActiveMonthScans?: number;
     securityPercentile?: number;
+    recipientName?: string;
+    unsubscribeUrl?: string;
     ceoName?: string;
     ceoTitle?: string;
     ceoImageUrl?: string;
@@ -44,6 +46,8 @@ import {
     mostActiveMonth,
     mostActiveMonthScans,
     securityPercentile,
+    recipientName,
+    unsubscribeUrl,
     ceoName = 'Peter McKay',
     ceoTitle = 'CEO',
     ceoImageUrl = 'https://snyk.io/_next/image/?url=https%3A%2F%2Fres.cloudinary.com%2Fsnyk%2Fimage%2Fupload%2Fv1630430074%2Fwordpress-sync%2Fpeter-mckay-1.jpg&w=256&q=75',
@@ -71,6 +75,12 @@ import {
                 }}>
                   {year} WRAPPED
                 </Text>
+                {/* Personalized Greeting - Only show if name is provided */}
+                {recipientName && (
+                  <Text className="mx-0 mt-4 p-0 text-center font-normal text-lg text-white" style={{ fontSize: '18px', marginTop: '16px' }}>
+                    Hi {recipientName},
+                  </Text>
+                )}
               </Section>
   
               {/* Main Stat Card - Security Marathon (Blue Gradient) */}
@@ -284,6 +294,14 @@ import {
                 <Text className="text-white text-sm opacity-60">
                   Thank you for being a security champion in {year}
                 </Text>
+                {/* Unsubscribe Link */}
+                {unsubscribeUrl && (
+                  <Text className="mt-4 text-white text-xs opacity-50" style={{ marginTop: '16px', fontSize: '12px' }}>
+                    <Link href={unsubscribeUrl} className="text-white underline opacity-70" style={{ color: '#FFFFFF', textDecoration: 'underline', opacity: 0.7 }}>
+                      Unsubscribe
+                    </Link>
+                  </Text>
+                )}
               </Section>
             </Container>
           </Body>
@@ -302,6 +320,8 @@ import {
     mostActiveMonth: 'September',
     mostActiveMonthScans: 28,
     securityPercentile: 1,
+    recipientName: 'Developer',
+    unsubscribeUrl: 'https://snyk.io/unsubscribe',
     ceoName: 'Peter McKay',
     ceoTitle: 'CEO',
     ceoImageUrl: 'https://snyk.io/_next/image/?url=https%3A%2F%2Fres.cloudinary.com%2Fsnyk%2Fimage%2Fupload%2Fv1630430074%2Fwordpress-sync%2Fpeter-mckay-1.jpg&w=256&q=75',
