@@ -186,3 +186,7 @@ Once you're ready to customize the design, you can:
 6. Test in the dev server
 7. Export and use in your email platform or send via Mailgun
 
+
+## Contributing
+
+Please consult [CONTRIBUTING](./CONTRIBUTING.md) for guidelines on contributing to this project.
