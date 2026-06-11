@@ -1,8 +1,4 @@
 {
-  "publishConfig": {
-    "provenance": true,
-    "access": "public"
-  },
   "name": "snyk-wrapped-2025-email-template",
   "version": "1.0.0",
   "description": "",
@@ -32,5 +28,9 @@
     "@types/react-dom": "^19.2.3",
     "tsx": "^4.21.0",
     "typescript": "^5.9.3"
+  },
+  "publishConfig": {
+    "provenance": true,
+    "access": "public"
   }
 }
